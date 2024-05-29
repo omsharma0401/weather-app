@@ -20,8 +20,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                Surface(modifier = Modifier
-                    .fillMaxSize()
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
                 ) {
                     WeatherPage(
                         weatherViewModel,

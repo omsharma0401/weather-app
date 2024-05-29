@@ -1,7 +1,6 @@
 package com.example.weatherapp
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -53,37 +52,40 @@ fun WeatherPage(viewModel: WeatherViewModel, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-            OutlinedTextField(
-                value = city,
-                onValueChange = { city = it },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = ""
-                    )
-                },
-                placeholder = { Text(text = "Search for any place") },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Search
-                ),
-                keyboardActions =  KeyboardActions(
-                    onSearch = { viewModel.getData(city) }
-                ),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+        OutlinedTextField(
+            value = city,
+            onValueChange = { city = it },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = ""
+                )
+            },
+            placeholder = { Text(text = "Search for any place") },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Search
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = { viewModel.getData(city) }
+            ),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
 
 
         when (val result = weatherResult.value) {
             is NetworkResponse.Error -> {
                 Text(text = result.message)
             }
+
             is NetworkResponse.Loading -> {
                 CircularProgressIndicator()
             }
+
             is NetworkResponse.Success -> {
                 WeatherDetails(data = result.data)
             }
+
             null -> {}
         }
     }
@@ -134,12 +136,17 @@ fun WeatherDetails(data: WeatherModel) {
                 fontSize = 24.sp,
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = data.location.country, fontSize = 18.sp, color = Color.Gray, modifier = Modifier.padding(end = 16.dp))
+            Text(
+                text = data.location.country,
+                fontSize = 18.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(end = 16.dp)
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
         Card(
             modifier = Modifier.clip(RoundedCornerShape(32.dp))
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .padding(16.dp),
